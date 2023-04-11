@@ -11,6 +11,7 @@ dependencies:
 variables:
     env:
         NODE_ENV: production
+        REBUILD: true
 hooks:
     build: |
         yarn --frozen-lockfile
