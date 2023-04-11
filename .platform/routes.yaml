@@ -7,3 +7,11 @@
 "https://www.api.{default}/":
     type: redirect
     to: "https://api.{default}/"
+
+"https://{default}/":
+    type: upstream
+    upstream: "nextjs:http"
+
+"https://www.{default}/":
+    type: redirect
+    to: "https://{default}/"
