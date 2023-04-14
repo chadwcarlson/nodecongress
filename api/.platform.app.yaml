@@ -5,21 +5,21 @@ type: 'nodejs:18'
 build:
     flavor: none
 
-dependencies:
-    nodejs: 
-        yarn: "*"
+# dependencies:
+#     nodejs: 
+#         yarn: "*"
 variables:
     env:
         NODE_ENV: production
         REBUILD: true
 hooks:
     build: |
-        yarn --frozen-lockfile
-        yarn build
+        corepack yarn --frozen-lockfile
+        corepack yarn build
 
 web:
     commands:
-        start: .global/bin/yarn start
+        start: corepack yarn start
 
 disk: 1024
 
