@@ -47,3 +47,32 @@ mounts:
     /.pm2:
         source: local
         source_path: 'pm2'
+
+operations:
+    next-rebuild:
+        role: admin
+        commands:
+            start: npm run build
+            # start: npx next build 
+            # start: next build 
+    pm2:
+        role: admin 
+        commands: 
+            start: |
+                # Assuming pm2 start npm --no-daemon --watch --name $APP -- start -- -p $PORT
+                APP=$(cat package.json | jq -r '.name')
+                # pm2 ping $APP
+                # pm2 reload $APP 
+                pm2 restart $APP
+
+    # strapi: 
+    #     role: admin 
+    #     commands: 
+    #         start: |
+    #             DUMP_DIR=$PLATFORM_APP_DIR/dumps
+    #             rm -rf $DUMP_DIR/*
+
+    #             timestamp=$(date '+%Y%m%d%k%S')
+    #             strapi config:dump -f dump_$timestamp.json
+    #             strapi export -k $PLATFORM_PROJECT_ENTROPY -f $DUMP_DIR/export_$timestamp.tar.gz.enc
+    #             echo $timestamp
